@@ -1,0 +1,69 @@
+body{
+    background-color: #bfd7ff;
+    margin: 0;
+}
+
+.homepage{
+    max-width: 1200px;
+}
+
+.header{
+    background-color: #1f7673;
+    padding: 20px 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepage_new-product,
+.homepage_all-product{
+    color: wheat;
+    font-size: 30px;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.homepage_new-product:hover,
+.homepage_all-product:hover{
+   color: #ccc;
+}
+
+.tittle{
+    text-align: center;
+}
+
+.edit{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.brand{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 400px;
+}
+
+.brand_name{
+    padding: 0 70px;
+    font-size: 200px;
+    font-family: 'Brush Script MT', cursive;
+}
+
+.login,
+.register,
+.insert{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.brand_name.a{
+    color: red;
+}
+
+.brand_name.t{
+    color: #009500;
+}
+
+.brand_name.n{
+    color: #000095;
+}
