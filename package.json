@@ -15,5 +15,13 @@
     "mongodb": "^3.6.9"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeHoangAnh21/Assignment_2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LeHoangAnh21/Assignment_2/issues"
+  },
+  "homepage": "https://github.com/LeHoangAnh21/Assignment_2#readme",
   "description": ""
 }

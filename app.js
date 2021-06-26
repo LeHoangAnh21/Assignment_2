@@ -134,6 +134,6 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 
-var PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 6000;
 app.listen(PORT);
 console.log('Server is running at: '+ PORT);
