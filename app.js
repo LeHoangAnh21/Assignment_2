@@ -23,7 +23,7 @@ app.use(express.static('public'))
 
 var dsNotToDelete = ['ao','quan','bep','my goi'];
 
-const dbHandler = require('./databaseHandler')
+const dbHandler = require('./databaseHandler')      
 
 
 
