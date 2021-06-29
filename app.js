@@ -27,22 +27,22 @@ const dbHandler = require('./databaseHandler')
 
 const { check, validationResult } = require('express-validator');
 
-// const validator = [
-//     check('txtName').exists().withMessage('Please Enter UserName')
-//     .notEmpty().withMessage('Username cannot be left blank')
-//     .isLength({min: 6}).withMessage('Username have to from 6 characters'),
+const validator = [
+    check('txtName').exists().withMessage('Please Enter UserName')
+    .notEmpty().withMessage('Username cannot be left blank')
+    .isLength({min: 6}).withMessage('Username have to from 6 characters'),
 
-//     check('txtPassword').exists().withMessage('Please Enter Password')
-//     .notEmpty().withMessage('Password cannot be left blank')
-//     .isLength({min: 6}).withMessage('Password have to from 6 characters')
+    check('txtPassword').exists().withMessage('Please Enter Password')
+    .notEmpty().withMessage('Password cannot be left blank')
+    .isLength({min: 6}).withMessage('Password have to from 6 characters')
 
-//     .custom((value, {req})=> {
-//     if(value !== req.body.txtPassword){
-//                 throw new Error('Password do not look like')
-//     }
-//         return true;
-//     })
-// ]
+    .custom((value, {req})=> {
+    if(value !== req.body.txtPassword){
+                throw new Error('Password do not look like')
+    }
+        return true;
+    })
+]
 
 
 
@@ -118,7 +118,7 @@ app.post('/doInsert', async (req,res)=>{
     }else if(dbHandler.checkName(priceInput)){
         res.render('insert',{priceError:'Please Enter Price Again!'})
     }else{  
-        await dbHandler.insertOneIntoCollection(newProduct,"Product");
+        await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
         res.render('home')
     }
 })
@@ -161,7 +161,7 @@ app.post('/doRegister',async (req,res)=>{
     }
     else
     {  
-        await dbHandler.insertOneIntoCollection(newUser,"Product");
+        await dbHandler.insertOneIntoCollection(newUser,"users");
         res.render('/')
     }
 })
