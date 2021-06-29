@@ -23,7 +23,26 @@ app.use(express.static('public'))
 
 var dsNotToDelete = ['ao','quan','bep','my goi'];
 
-const dbHandler = require('./databaseHandler')      
+const dbHandler = require('./databaseHandler')
+
+const { check, validationResult } = require('express-validator');
+
+const validator = [
+    check('txtName').exists().withMessage('Please Enter UserName')
+    .notEmpty().withMessage('Username cannot be left blank')
+    .isLength({min: 6}).withMessage('Username have to from 6 characters'),
+
+    check('txtPassword').exists().withMessage('Please Enter Password')
+    .notEmpty().withMessage('Password cannot be left blank')
+    .isLength({min: 6}).withMessage('Password have to from 6 characters')
+
+    .custom((value, {req})=> {
+    if(value !== req.body.txtPassword){
+                throw new Error('Password do not look like')
+    }
+        return true;
+    })
+]
 
 
 
@@ -57,7 +76,7 @@ app.get('/delete',async (req,res)=>{
     const productToDelete = await dbo.collection("SanPham").findOne(condition);
     const index = dsNotToDelete.findIndex((e)=>e==productToDelete.name);
     if (index !=-1) {
-        res.end('Cant delete ' + dsNotToDelete[index])
+        res.end('Cant delete as special product: ' + dsNotToDelete[index])
     }else{
         await dbo.collection("SanPham").deleteOne(condition);
         res.redirect('/view');
@@ -92,10 +111,16 @@ app.get('/insert',(req,res)=>{
 app.post('/doInsert', async (req,res)=>{
     const nameInput = req.body.txtName;
     const priceInput = req.body.txtPrice;
-    const imgURLInput = req.body.imgURL;
-    const newProduct = {name:nameInput, price:priceInput,imgUrl:imgURLInput}
-    await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
-    res.render('home')
+    const newProduct = {name:nameInput, price:priceInput}
+    if(!dbHandler.checkName(nameInput))
+    {
+        res.render('insert',{nameError:'Please Enter Name Again!'})
+    }else if(dbHandler.checkName(priceInput)){
+        res.render('insert',{priceError:'Please Enter Price Again!'})
+    }else{  
+        await dbHandler.insertOneIntoCollection(newProduct,"Product");
+        res.render('home')
+    }
 })
 
 app.get('/home',(req,res)=>{
@@ -125,8 +150,20 @@ app.post('/doRegister',async (req,res)=>{
     const nameInput = req.body.txtName;
     const passInput = req.body.txtPassword;
     const newUser = {username:nameInput,password:passInput};
-    await dbHandler.insertOneIntoCollection(newUser,"users");
-    res.redirect('/');
+
+    if(nameInput.length < 6)
+    {
+        res.render('register',{nameError:'Username have to from 6 characters'})
+    }
+    else if(passInput.length < 6)
+    {
+        res.render('register',{passError:'Password have to from 6 characters'})
+    }
+    else
+    {  
+        await dbHandler.insertOneIntoCollection(newUser,"Product");
+        res.render('/')
+    }
 })
 
 
