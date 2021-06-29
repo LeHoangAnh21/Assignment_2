@@ -25,7 +25,7 @@ var dsNotToDelete = ['ao','quan','bep','my goi'];
 
 const dbHandler = require('./databaseHandler')
 
-const { check, validationResult } = require('express-validator');
+//const { check, validationResult } = require('express-validator');
 
 // const validator = [
 //     check('txtName').exists().withMessage('Please Enter UserName')
