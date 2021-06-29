@@ -168,7 +168,7 @@ app.post('/doRegister',async (req,res)=>{
     else
     {  
         await dbHandler.insertOneIntoCollection(newUser,"users");
-        res.render('/')
+        res.redirect('/')
     }
 })
 
