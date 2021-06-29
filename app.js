@@ -111,19 +111,19 @@ app.get('/insert',(req,res)=>{
 app.post('/doInsert', async (req,res)=>{
     const nameInput = req.body.txtName;
     const priceInput = req.body.txtPrice;
-    const newProduct = {name:nameInput, price:priceInput}
-    await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
-    res.render('home')
+    const newProduct = {name:nameInput, price:priceInput};
+    // await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
+    // res.render('home')
 
-    // if(!dbHandler.checkName(nameInput))
-    // {
-    //     res.render('insert',{nameError:'Please Enter Name Again!'})
-    // }else if(dbHandler.checkName(priceInput)){
-    //     res.render('insert',{priceError:'Please Enter Price Again!'})
-    // }else{  
-    //     await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
-    //     res.render('home')
-    // }
+    if(!dbHandler.checkName(nameInput))
+    {
+        res.render('insert',{nameError:'Please Enter Name Again!'})
+    }else if(dbHandler.checkName(priceInput)){
+        res.render('insert',{priceError:'Please Enter Price Again!'})
+    }else{  
+        await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
+        res.render('home')
+    }
 })
 
 app.get('/home',(req,res)=>{
@@ -154,22 +154,22 @@ app.post('/doRegister',async (req,res)=>{
     const passInput = req.body.txtPassword;
     const newUser = {username:nameInput,password:passInput};
 
-    await dbHandler.insertOneIntoCollection(newUser,"users");
-    res.render('/')
+    // await dbHandler.insertOneIntoCollection(newUser,"users");
+    // res.render('/')
 
-    // if(nameInput.length < 6)
-    // {
-    //     res.render('register',{nameError:'Username have to from 6 characters'})
-    // }
-    // else if(passInput.length < 6)
-    // {
-    //     res.render('register',{passError:'Password have to from 6 characters'})
-    // }
-    // else
-    // {  
-    //     await dbHandler.insertOneIntoCollection(newUser,"users");
-    //     res.render('/')
-    // }
+    if(nameInput.length < 6)
+    {
+        res.render('register',{nameError:'Username have to from 6 characters'})
+    }
+    else if(passInput.length < 6)
+    {
+        res.render('register',{passError:'Password have to from 6 characters'})
+    }
+    else
+    {  
+        await dbHandler.insertOneIntoCollection(newUser,"users");
+        res.render('/')
+    }
 })
 
 
