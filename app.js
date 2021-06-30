@@ -89,25 +89,20 @@ app.get('/insert',(req,res)=>{
 })
 
 app.post('/doInsert', async (req,res)=>{
-    let error = [];
-    let flag = true;
     const nameInput = req.body.txtName;
     const priceInput = req.body.txtPrice;
     const newProduct = {name:nameInput, price:priceInput};
+    // await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
+    // res.render('home')
 
     if(!dbHandler.checkName(nameInput))
     {
-        error["name"] = 'Please Enter Name Again!'
-        flag = false;
-    }if(dbHandler.checkPrice(priceInput)){
-        error["price"] = 'Please Enter price Again!'
-        flag = false;
-    }if(flag == true){
+        res.render('insert',{nameError:'Please Enter Name Again!'})
+    }else if(dbHandler.checkName(priceInput)){
+        res.render('insert',{priceError:'Please Enter Price Again!'})
+    }else{  
         await dbHandler.insertOneIntoCollection(newProduct,"SanPham");
         res.render('home')
-    }
-    else{  
-        res.render('insert',{error:error})
     }
 })
 
