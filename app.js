@@ -25,26 +25,6 @@ var dsNotToDelete = ['ao','quan','bep','my goi'];
 
 const dbHandler = require('./databaseHandler')
 
-//const { check, validationResult } = require('express-validator');
-
-const validator = [
-    check('txtName').exists().withMessage('Please Enter UserName')
-    .notEmpty().withMessage('Username cannot be left blank')
-    .isLength({min: 6}).withMessage('Username have to from 6 characters'),
-
-    check('txtPassword').exists().withMessage('Please Enter Password')
-    .notEmpty().withMessage('Password cannot be left blank')
-    .isLength({min: 6}).withMessage('Password have to from 6 characters')
-
-    .custom((value, {req})=> {
-    if(value !== req.body.txtPassword){
-                throw new Error('Password do not look like')
-    }
-        return true;
-    })
-]
-
-
 
 app.post('/update',async (req,res)=>{
     const id = req.body.id;
