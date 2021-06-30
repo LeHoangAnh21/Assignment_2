@@ -33,4 +33,25 @@ async function checkUser(nameIn,passwordIn){
 
 }
 
+async function checkName(value)
+{
+    for(var i = 0; i < value.length; i++)
+    {
+        if(value[i] < 'a' || value[i] > 'z')
+        {
+            return false;
+        }   
+    }
+    return true;
+}
+
+async function checkPrice(value)
+{
+   if(isNaN(value))
+   {
+       return true;
+   }
+    return false;
+}
+
 module.exports = {searchSanPham,insertOneIntoCollection,checkUser}
