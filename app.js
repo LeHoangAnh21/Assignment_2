@@ -130,20 +130,24 @@ app.get('/register',(req,res)=>{
 })
 
 app.post('/doRegister',async (req,res)=>{
+    let error = [];
+    let flag = true;
     const nameInput = req.body.txtName;
     const passInput = req.body.txtPassword;
     const newUser = {username:nameInput,password:passInput};
-
-    // await dbHandler.insertOneIntoCollection(newUser,"users");
-    // res.render('/')
-
+    
     if(nameInput.length < 6)
     {
-        res.render('register',{nameError:'Username have to from 6 characters'})
+        error["username"] = 'Username have to from 6 characters'
+        flag = false
     }
-    else if(passInput.length < 6)
+    if(passInput.length < 6)
     {
-        res.render('register',{passError:'Password have to from 6 characters'})
+        error["password"] = 'Password have to from 6 characters'
+        flag = false
+    }
+    if(flag == false){
+        res.render('register', {error:error})
     }
     else
     {  

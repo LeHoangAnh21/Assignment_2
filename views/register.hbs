@@ -17,9 +17,11 @@
 	<div class="register">
 		<form action="/doRegister" method="post">
 			User Name <input type="text" name="txtName">
+			<span class="error">{{error.username}}</span>
 			<br>
 			<br>
 			Password <input type="password" name="txtPassword">
+			<span class="error">{{error.password}}</span>
 			<br>
 			<br>
 			<input type="submit" value="Register" style="background-color: teal; color: white; 
